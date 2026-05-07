@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class childBrain : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public enum ChildState
     {
-        
+        Patrolling,
+        Chasing,
+        Watching,
+        Idle
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public ChildState state;
+
+    public bool stateLocked;
 }

@@ -19,23 +19,16 @@ public class childMovement : MonoBehaviour
     public bool playerInSightRange, playerCloseInRange;
 
     //State system
-    public enum ChildState
-    {
-        Patrolling,
-        Chasing,
-        Watching,
-        Idle
-    }
 
-    public ChildState state;
-    public bool stateLocked;
+    private childBrain brain;
 
 
     private void Awake()
     {
         player = GameObject.Find("PlayerObj").transform;
         agent = GetComponent<NavMeshAgent>();
-        stateLocked = false;
+        brain = GetComponent<childBrain>();
+        brain.stateLocked = false;
     }
 
     private void Update() 
@@ -43,28 +36,28 @@ public class childMovement : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerCloseInRange = Physics.CheckSphere(transform.position, closeRange, whatIsPlayer);
 
-        if (!stateLocked)
+        if (!brain.stateLocked)
         {
             if (!playerInSightRange && !playerCloseInRange)
-                state = ChildState.Patrolling;
+                brain.state = childBrain.ChildState.Patrolling;
 
             if (playerInSightRange && !playerCloseInRange)
-                state = ChildState.Chasing;
+                brain.state = childBrain.ChildState.Chasing;
 
             if (playerInSightRange && playerCloseInRange)
-                state = ChildState.Watching;
+                brain.state = childBrain.ChildState.Watching;
 
         }
 
-        switch(state)
+        switch(brain.state)
         {
-            case ChildState.Patrolling:
+            case childBrain.ChildState.Patrolling:
                 Patroling();
                 break;
-            case ChildState.Chasing:
+            case childBrain.ChildState.Chasing:
                 ChasePlayer();
                 break;
-            case ChildState.Watching:
+            case childBrain.ChildState.Watching:
                 WatchingPlayer();
                 break;
         }
