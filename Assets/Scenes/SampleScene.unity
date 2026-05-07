@@ -769,6 +769,8 @@ MonoBehaviour:
   closeRange: 2
   playerInSightRange: 0
   playerCloseInRange: 0
+  state: 0
+  stateLocked: 1
 --- !u!1001 &1934161036
 PrefabInstance:
   m_ObjectHideFlags: 0
