@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class childTrustAndFear : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public enum ChildTrust
     {
-        
+        Stranger,
+        LowTrust,
+        MidTrust,
+        HighTrust,
+        Fear
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public ChildTrust state;
+
+    public bool stateLocked;
 }

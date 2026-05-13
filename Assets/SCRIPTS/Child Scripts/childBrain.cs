@@ -7,7 +7,10 @@ public class childBrain : MonoBehaviour
         Patrolling,
         Chasing,
         Watching,
-        Idle
+        Idle,
+        Scared,
+        Drawing,
+        Hiding
     }
 
     public ChildState state;
