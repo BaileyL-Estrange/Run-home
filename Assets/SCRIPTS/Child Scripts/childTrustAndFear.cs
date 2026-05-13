@@ -2,16 +2,18 @@ using UnityEngine;
 
 public class childTrustAndFear : MonoBehaviour
 {
-    public enum ChildTrust
+    public enum ChildEmotions
     {
         Stranger,
         LowTrust,
         MidTrust,
         HighTrust,
-        Fear
+        Fear,
+        Sad,
+        Happy
     }
 
-    public ChildTrust state;
+    public ChildEmotions state;
 
     public bool stateLocked;
 }
