@@ -4,7 +4,6 @@ public class childBrain : MonoBehaviour
 {
     public enum ChildState
     {
-        Patrolling,
         Chasing,
         Watching,
         Idle,
