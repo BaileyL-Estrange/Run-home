@@ -95,8 +95,11 @@ namespace EasyPeasyFirstPersonController
             targetCameraY = standingCameraHeight;
             originalCamY = standingCameraHeight;
 
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            if (!CursorManagement.inUI)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
 
             characterController = GetComponent<CharacterController>();
             standingCharacterControllerHeight = characterController.height;

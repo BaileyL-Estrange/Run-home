@@ -1,16 +1,27 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class drawingOne : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+	private Renderer _renderer;
+	public Image drawingImage;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	private void Start() 
+	{
+		_renderer = GetComponent<Renderer>();
+
+	}
+	private void OnMouseDown()
+	{
+		drawingImage.gameObject.SetActive(true);
+		CursorManagement.SetUI(true);
+	}
+
+	public void hideDrawings() 
+	{
+		Debug.Log("Button clicked!");
+		drawingImage.gameObject.SetActive(false);
+		CursorManagement.SetUI(false);
+	}
+
 }
