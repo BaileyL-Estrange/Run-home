@@ -5,6 +5,7 @@ public class drawingOne : MonoBehaviour
 {
 	private Renderer _renderer;
 	public Image drawingImage;
+	public GameObject crosshair;
 
 	private void Start() 
 	{
@@ -15,6 +16,7 @@ public class drawingOne : MonoBehaviour
 	{
 		drawingImage.gameObject.SetActive(true);
 		CursorManagement.SetUI(true);
+		crosshair.gameObject.SetActive(false);
 	}
 
 	public void hideDrawings() 
@@ -22,6 +24,7 @@ public class drawingOne : MonoBehaviour
 		Debug.Log("Button clicked!");
 		drawingImage.gameObject.SetActive(false);
 		CursorManagement.SetUI(false);
+		crosshair.gameObject.SetActive(true);
 	}
 
 }
