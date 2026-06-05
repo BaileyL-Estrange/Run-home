@@ -1,15 +1,20 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class DialogueTrigger : MonoBehaviour
 {
 	[Header("Visual Cue")]
 	[SerializeField] private GameObject visualCue;
 
-	private bool PlayerInRange
+	[Header("Ink JSON")]
+	[SerializeField] private TextAsset inkJSON;
+
+	private bool playerInRange;
 
 	private void Awake()
 	{
-		playInRange = false;
+		playerInRange = false;
 		visualCue.SetActive(false);
 	}
 
@@ -18,7 +23,7 @@ public class DialogueTrigger : MonoBehaviour
 		if (playerInRange)
 		{
 			visualCue.SetActive(true);
-			if(InputManager.GetInstance().GetInteractPressed())
+			if(Input.GetKeyDown(KeyCode.E))
 			{
 				Debug.Log(inkJSON.text);
 			}
