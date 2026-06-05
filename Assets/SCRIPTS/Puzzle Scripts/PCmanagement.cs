@@ -27,4 +27,11 @@ public class PCmanagement : MonoBehaviour
 		crosshair.gameObject.SetActive(true);
 	}
 
+	public void hideSPECIFICapp()
+	{
+		PCImage.gameObject.SetActive(false);
+		CursorManagement.SetUI(true);
+		crosshair.gameObject.SetActive(false);
+	}
+
 }
