@@ -71,7 +71,5 @@ public class childMovement : MonoBehaviour
     private void WatchingPlayer()
     {
         agent.SetDestination(transform.position);
-
-        transform.LookAt(player);
     }
 }
