@@ -1,16 +1,122 @@
 using UnityEngine;
+using System.Collections.Generic;
+using TMPro;
+using Ink.Runtime;
 
 public class DialogueScript : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	[Header("Dialogue UI")]
+	[SerializeField] private GameObject dialoguePanel;
+	[SerializeField] private TextMeshProUGUI dialogueText;
+
+	[Header("Choices UI")]
+	[SerializeField] private GameObject[] choices;
+
+	private TextMeshProUGUI[] choicesText;
+
+	private Story currentStory;
+
+	public bool dialogueIsPlaying;
+
+	private static DialogueScript instance;
+
+	public GameObject crosshair;
+
+	private void Awake()
+	{
+		if(instance != null)
+		{
+			Debug.LogWarning("Found more than one Dialogue manager in the scene");
+		}
+		instance = this;
+	}
+
+	public static DialogueScript GetInstance()
+	{
+		return instance;
+	}
+
+	private void Start()
+	{
+		dialogueIsPlaying = false;
+		dialoguePanel.SetActive(false);
+
+		choicesText = new TextMeshProUGUI[choices.Length];
+		int index = 0;
+		foreach (GameObject choice in choices)
+		{
+			choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
+			index++;
+		}
+	}
+
+	private void Update()
+	{
+		if (!dialogueIsPlaying)
+		{
+			return;
+		}
+
+		if(Input.GetKeyDown(KeyCode.F))
+		{
+			ContinueStory();
+		}
+	}
+
+	public void EnterDialogueMode(TextAsset inkJSON)
+	{
+		currentStory = new Story(inkJSON.text);
+		dialogueIsPlaying = true;
+		dialoguePanel.SetActive(true);
+
+		ContinueStory();
+	}
+
+	private void ExitDialogueMode()
+	{
+		dialogueIsPlaying = false;
+		dialoguePanel.SetActive(false);
+		dialogueText.text = "";
+		CursorManagement.SetUI(false);
+		crosshair.gameObject.SetActive(true);
+	}
+
+	private void ContinueStory()
+	{
+		if (currentStory.canContinue)
+		{
+			dialogueText.text = currentStory.Continue();
+			DisplayChoices();
+		}
+		else
+		{
+			ExitDialogueMode();
+		}
+	}
+
+	private void DisplayChoices()
+	{
+		List<Choice> currentChoices = currentStory.currentChoices;
+
+		if (currentChoices.Count > choices.Length)
+		{
+			Debug.LogError("Too Many Choices");
+		}
+
+		int index = 0;
+		foreach(Choice choice in currentChoices)
+		{
+			choices[index].gameObject.SetActive(true);
+			choicesText[index].text = choice.text;
+			index++;
+		}
+
+		for(int i = index; i < choices.Length; i++)
+		{
+			choices[i].gameObject.SetActive(false);
+		}
+		CursorManagement.SetUI(true);
+		crosshair.gameObject.SetActive(false);
+	}
 }

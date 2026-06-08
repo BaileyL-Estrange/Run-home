@@ -20,12 +20,12 @@ public class DialogueTrigger : MonoBehaviour
 
 	private void Update()
 	{
-		if (playerInRange)
+		if (playerInRange && !DialogueScript.GetInstance().dialogueIsPlaying)
 		{
 			visualCue.SetActive(true);
 			if(Input.GetKeyDown(KeyCode.E))
 			{
-				Debug.Log(inkJSON.text);
+				DialogueScript.GetInstance().EnterDialogueMode(inkJSON);
 			}
 		}
 		else
